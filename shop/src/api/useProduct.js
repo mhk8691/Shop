@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
-const fetchProducts = async () => {
-    const response = await axios.get('https://api.escuelajs.co/api/v1/products?offset=10&limit=5')
+const fetchProduct = async () => {
+    const response = await axios.get('https://api.escuelajs.co/api/v1/products?offset=15&limit=5')
     return response.data
 }
 
-const useProducts = () => {
+const useProduct = () => {
     return useQuery({
         queryKey: ['products'],
-        queryFn: fetchProducts,
+        queryFn: fetchProduct,
     })
 }
-export default useProducts
+export default useProduct

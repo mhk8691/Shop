@@ -1,9 +1,8 @@
 import { RouterProvider } from "react-router-dom"
 import { createBrowserRouter } from "react-router-dom"
 import AppLayout from './components/AppLayout/AppLayout.jsx'
-import Typography from '@mui/material/Typography'
 import HomePage from "./pages/HomePage.jsx"
-
+import Products from "./pages/Products.jsx"
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -11,6 +10,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />
+      },
+      {
+        path: '/category/:categoryId',
+        element: <Products />
       }
     ]
   }

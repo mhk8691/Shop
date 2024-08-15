@@ -9,12 +9,12 @@ import 'swiper/css/navigation';
 import './Slider.css';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import useProducts from '../../api/useProduct';
+import useProduct from '../../api/useProduct';
 import { Chip, Stack } from '@mui/material';
 
 
 export default function Slider() {
-    const { data } = useProducts()
+    const { data } = useProduct()
     console.log(data)
     const progressCircle = useRef(null);
     const progressContent = useRef(null);
@@ -39,20 +39,12 @@ export default function Slider() {
                 onAutoplayTimeLeft={onAutoplayTimeLeft}
                 className="mySwiper"
             >
-                {/* <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img className='img-slider' src="https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE-1200x800.jpg" alt="" /></SwiperSlide> */}
+
                 {data?.map((item) => (
-                    // <SwiperSlide><img src={item.images[0]} alt="" /></SwiperSlide>
                     <SwiperSlide style={{ position: 'relative' }}>
                         <img src={item.images[0]} alt="" />
                         <Stack direction="row" spacing={1} sx={{ position: 'absolute', bottom: 20, left: 20, }}>
-                            <Chip label={item.title} color="sungLow"  />
+                            <Chip label={item.title} color="sungLow" />
                         </Stack>
                     </SwiperSlide>
                 ))}

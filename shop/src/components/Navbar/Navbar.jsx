@@ -31,7 +31,7 @@ const cartStyles = {
     width: '300px',
     padding: '.7rem',
     zIndex: '100',
-    
+
 }
 function Navbar() {
     const theme = useTheme()
@@ -87,7 +87,7 @@ function Navbar() {
                                 </IconButton>
                                 {isHover ? <div style={cartStyles}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, consequatur.</div> : null}
                             </Box>
-                            <Button variant="contained" size="large" component={RouterLink} to="/login">login / sign up</Button>
+                            <Button variant="contained" size="large" component={RouterLink} to="/signUp">login / sign up</Button>
                         </div>
                     )}
                 </Box>

@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom"
 import AppLayout from './components/AppLayout/AppLayout.jsx'
 import HomePage from "./pages/HomePage.jsx"
 import Products from "./pages/Products.jsx"
+import SignUp from "./pages/SignUp.jsx"
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: '/category/:categoryId',
         element: <Products />
+      },
+      {
+        path: '/SignUp',
+        element: <SignUp />
       }
     ]
   }

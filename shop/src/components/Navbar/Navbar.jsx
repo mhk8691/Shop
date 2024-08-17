@@ -3,7 +3,10 @@ import { Link as RouterLink, useNavigate } from "react-router-dom"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
+
+
 
 const toolbarStyles = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1.8 }
 const searchBarStyles =
@@ -38,6 +41,10 @@ function Navbar() {
     const theme = useTheme()
     const menu = useMediaQuery(theme.breakpoints.down('md'))
     const [isHover, setIsHover] = useState(false)
+    const [token, setToken] = useState('')
+    useEffect(() => {
+        setToken(Cookies.get('access_token'))
+    }, [token])
     const handleMouseEnter = () => {
         setIsHover(true)
     }
@@ -95,7 +102,11 @@ function Navbar() {
                                 </IconButton>
                                 {isHover ? <div style={cartStyles}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, consequatur.</div> : null}
                             </Box>
-                            <Button variant="contained" size="large" component={RouterLink} to="/signup">login / sign up</Button>
+                            {
+                                !token ? (
+                                    <Button variant="contained" size="large" component={RouterLink} to="/signup">login / sign up</Button>
+                                ) : null
+                            }
                         </div>
                     )}
                 </Box>

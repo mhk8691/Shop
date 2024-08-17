@@ -12,10 +12,11 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import useProduct from '../../api/useProduct';
 import { Chip, CircularProgress, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import zIndex from '@mui/material/styles/zIndex';
 
 
 export default function Slider() {
-    const { data, isLoading } = useProduct()
+    const { data, isPending } = useProduct()
     console.log(data)
     const progressCircle = useRef(null);
     const progressContent = useRef(null);
@@ -24,6 +25,15 @@ export default function Slider() {
         progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
     };
     const navigate = useNavigate()
+    const loaingStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 100
+    }
+    if (isPending) return <CircularProgress color="primary" sx={loaingStyle} />
+
     return (
         <>
 
@@ -44,7 +54,7 @@ export default function Slider() {
             >
 
                 {data?.map((item) => (
-                    <SwiperSlide style={{ position: 'relative' }} key={item.id} onClick={() => navigate(`/product/${item.id}`)} style={{ cursor: 'pointer' }}>
+                    <SwiperSlide style={{ position: 'relative', cursor: 'pointer' }} key={item.id} onClick={() => navigate(`/product/${item.id}`)} >
                         <img src={item.images[0]} alt="" />
                         <Stack direction="row" spacing={1} sx={{ position: 'absolute', bottom: 20, left: 20, }}>
                             <Chip label={item.title} color="sungLow" />

@@ -4,6 +4,7 @@ import axios from "axios"
 const BASE_URL = `https://api.escuelajs.co/api/v1/products/`
 const fetchProducts = async ({ queryKey }) => {
     const [_key, object] = await queryKey;
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const response = await axios.get(`${BASE_URL}${object.key}${object.params}`);
     return response.data;
 };

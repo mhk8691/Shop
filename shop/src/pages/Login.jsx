@@ -1,70 +1,56 @@
 import { Box, Typography, Container, TextField, Button, Link } from '@mui/material'
-import useSignup from '../api/useSignup'
+import useLogin from '../api/useLogin'
 import { useEffect, useState } from 'react'
-import { Link as RouterLink, useNavigate } from "react-router-dom"
+import { Link as RouterLink } from "react-router-dom"
 import Cookies from 'js-cookie';
-
+import { useNavigate } from 'react-router-dom';
 function Login() {
-    const { mutateAsync: signup, reset } = useSignup()
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const { mutateAsync: Login, reset } = useLogin()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [focus, setFocus] = useState(false)
     const [token, setToken] = useState('')
     const navigate = useNavigate()
     async function handleSubmit(e) {
-
         e.preventDefault()
         const data = {
-            name,
             email,
             password,
-            avatar: 'https://picsum.photos/800'
         }
-        await signup(data)
-        setName("")
+        const res = await Login(data)
+        const token = res.access_token;
+        Cookies.set('access_token', token, { expires: 7 });
+        setToken(token)
         setEmail("")
         setPassword("")
         reset()
         setFocus(false)
     }
     useEffect(() => {
-        document.title = 'Sign up'
+        document.title = 'Login'
     }, [])
+
     useEffect(() => {
         setToken(Cookies.get('access_token'))
     }, [token])
     if (token) return navigate('/')
     return (
 
-        <Container sx={{ mt: 5 }} maxWidth="sm">
+        <Container sx={{ mt: 10 }} maxWidth="sm">
             <Box sx={{ backgroundColor: 'primary.light', py: 1.5, borderTopLeftRadius: '30px', borderTopRightRadius: '30px', }} >
                 <Typography variant="h6" px={6} color='primary.contrastText' >
-                    Sign up
+                    Login
                 </Typography>
             </Box>
             <Box sx={{ backgroundColor: '#efefef', py: 2, }} >
 
                 <Box px={5} mt={3} pb={5}>
                     <form method="post" onSubmit={handleSubmit}>
-                        <TextField
-                            label="UserName"
-                            variant="outlined"
-                            fullWidth
-                            InputLabelProps={{
-                                sx: {
-                                    fontSize: '0.875rem',
-                                },
-                            }}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            disabled={focus}
-                        />
+
                         <TextField label="Email"
                             variant="outlined"
                             type="email"
                             fullWidth
-                            sx={{ mt: 4 }}
                             InputLabelProps={{
                                 sx: {
                                     fontSize: '0.875rem',
@@ -91,19 +77,19 @@ function Login() {
                         />
 
                         <Button variant="contained" sx={{ mt: 4, }} fullWidth size="large" type="submit">
-                            Sign up
+                            Login
                         </Button>
                         <Typography variant="body1" sx={{ mt: 2, textAlign: 'center', }}>
-                            Already have an account?
+                            Don't have an account?
                             <Link
                                 component={RouterLink}
-                                to="/login"
+                                to="/signup"
                                 underline="none"
                                 sx={{ ml: .5 }}
                                 color="primary.dark"
 
                             >
-                                Login
+                                Sign up
                             </Link>
                         </Typography>
                     </form>

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useProducts from "../../api/useProducts";
+import useProducts from "../api/useProducts";
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCards } from 'swiper/modules';
@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/effect-cards';
 import styles from './ProductDetail.module.css'
 import { useEffect } from "react";
-import { Badge, Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Badge, Box, Button, CircularProgress, Container, Grid, Typography } from "@mui/material";
 
 const containerStyle = {
     backgroundColor: '#efefef',
@@ -28,10 +28,19 @@ const boxStyle = {
 }
 function ProductDetail() {
     const { productId } = useParams();
-    const { data } = useProducts({ key: '', params: productId });
+    const { data, isPending } = useProducts({ key: '', params: productId });
     useEffect(() => {
         document.title = data?.title;
     }, [data]);
+    const loaingStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 100
+    }
+    if (isPending) return <CircularProgress color="primary" sx={loaingStyle} />
+    
     return (
         <div style={{ marginTop: '5rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
             <Badge badgeContent={data?.category.name} color="primary"  >

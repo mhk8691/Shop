@@ -1,6 +1,6 @@
 import { Box, Typography, Container, TextField, Button } from '@mui/material'
 import useSignup from '../api/useSignup'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function Login() {
     const { mutateAsync: signup, reset } = useSignup()
@@ -23,6 +23,9 @@ function Login() {
         reset()
         setFocus(false)
     }
+    useEffect(() => {
+        document.title = 'Sign up'
+    }, [])
     return (
 
         <Container sx={{ mt: 7 }} maxWidth="sm">

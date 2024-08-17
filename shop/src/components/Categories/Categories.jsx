@@ -18,8 +18,7 @@ function Categories() {
     // const imageCategory = {}
 
     return (
-        <div>
-            {isLoading && <p>Loading...</p>}
+        <>
             {error && <p>Error: {error.message}</p>}
 
             <ImageList cols={cols} gap={10} style={{ marginTop: '3rem' }} >
@@ -27,7 +26,7 @@ function Categories() {
                     <CategoryItem key={item.id} item={item} />
                 ))}
             </ImageList>
-        </div >
+        </>
     )
 }
 

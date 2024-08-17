@@ -9,7 +9,7 @@ function CategoryItem({ item }) {
                 <img
                     srcSet={`${item.image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                     src={`${item.image}?w=164&h=164&fit=crop&auto=format`}
-                    style={{ borderRadius: '10px', width: '324px', height: '324px' }}
+                    style={{ borderRadius: '10px' }}
                     alt={item.name}
                     loading="lazy"
                 />

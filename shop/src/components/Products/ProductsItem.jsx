@@ -4,10 +4,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
+import { Link, useNavigate } from "react-router-dom";
 function ProductsItem({ item }) {
+    const navigate = useNavigate();
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
-            <Card sx={{ borderRadius: 4 }}>
+            <Card sx={{ borderRadius: 4 }} onClick={() => navigate(`/product/${item.id}`)}>
                 <CardActionArea>
                     <CardMedia
                         component="img"

@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
+const BASE_URL = `https://api.escuelajs.co/api/v1/products/`
 const fetchProducts = async ({ queryKey }) => {
-    const [_key, categoryId] = queryKey;
-    const response = await axios.get(`https://api.escuelajs.co/api/v1/products/?categoryId=${categoryId}`);
+    const [_key, object] = await queryKey;
+    const response = await axios.get(`${BASE_URL}${object.key}${object.params}`);
     return response.data;
 };
 
-const useProducts = (categoryId) => {
+const useProducts = (object) => {
     return useQuery({
-        queryKey: ['products', categoryId],
+        queryKey: ['products', object],
         queryFn: fetchProducts,
 
     });

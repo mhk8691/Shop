@@ -4,12 +4,18 @@ import App from './App.jsx'
 import './index.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { alpha, createTheme, getContrastRatio, ThemeProvider } from '@mui/material'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+
+
 const queryClient = new QueryClient()
 const indigo = alpha('#511396', 0.7)
 const brightPink = alpha('#EF476F', 0.7)
 const sungLow = alpha('#FFD166', 0.7)
 const emerald = alpha('#06D6A0', 0.7)
 const white = alpha('#FFFCF9', 0.7)
+
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -51,6 +57,7 @@ createRoot(document.getElementById('root')).render(
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </StrictMode>,
 )

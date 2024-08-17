@@ -1,0 +1,37 @@
+:root {
+  --mui-primary: #511396;
+  --mui-secondary: #ef476f;
+  --mui-sungLow: #ffd166;
+  --mui-emerald: #06d6a0;
+}
+.swiper {
+  width: 240px;
+  height: 320px;
+  user-select: none;
+}
+
+.swiperSlide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.swiperSlide:nth-child(1n) {
+  background-color: var(--mui-primary);
+}
+
+.swiperSlide:nth-child(2n) {
+  background-color: var(--mui-secondary);
+}
+
+.swiperSlide:nth-child(3n) {
+  background-color: var(--mui-emerald);
+}
+
+.swiperSlide:nth-child(4n) {
+  background-color: var(--mui-sungLow);
+}

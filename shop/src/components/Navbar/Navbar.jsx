@@ -1,10 +1,9 @@
 import { AppBar, Box, IconButton, TextField, Toolbar, Typography, Link, Button, useMediaQuery, ThemeProvider } from "@mui/material"
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
-import zIndex from "@mui/material/styles/zIndex";
 
 const toolbarStyles = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1.8 }
 const searchBarStyles =
@@ -34,6 +33,8 @@ const cartStyles = {
 
 }
 function Navbar() {
+    const [query, setQuery] = useState('')
+    const navigator = useNavigate()
     const theme = useTheme()
     const menu = useMediaQuery(theme.breakpoints.down('md'))
     const [isHover, setIsHover] = useState(false)
@@ -42,6 +43,11 @@ function Navbar() {
     }
     const handleMouseLeave = () => {
         setIsHover(false)
+    }
+    function handleSubmit(e) {
+        e.preventDefault()
+        navigator(`/products/?q=${query}`)
+        setQuery('')
     }
     return (
         <AppBar position="static" color="default" sx={{ borderRadius: 2, bgcolor: 'primary.contrastText' }}>
@@ -63,7 +69,7 @@ function Navbar() {
                     </Typography>
                 </Box>
                 <Box width={'60%'} >
-                    <form action="">
+                    <form action="" onSubmit={handleSubmit}>
                         <TextField
                             label="search"
                             color="primary"
@@ -71,6 +77,8 @@ function Navbar() {
                                 searchBarStyles
                             }
                             focused
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
                         />
                     </form>
                 </Box>
@@ -87,7 +95,7 @@ function Navbar() {
                                 </IconButton>
                                 {isHover ? <div style={cartStyles}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, consequatur.</div> : null}
                             </Box>
-                            <Button variant="contained" size="large" component={RouterLink} to="/signUp">login / sign up</Button>
+                            <Button variant="contained" size="large" component={RouterLink} to="/signup">login / sign up</Button>
                         </div>
                     )}
                 </Box>

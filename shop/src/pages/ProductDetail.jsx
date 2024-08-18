@@ -30,7 +30,7 @@ function ProductDetail() {
     const { productId } = useParams();
     const { data, isPending } = useProducts({ key: '', params: productId });
     useEffect(() => {
-        document.title = data?.title;
+        data ? document.title = data?.title : document.title = 'product'
     }, [data]);
     const loaingStyle = {
         position: 'absolute',
@@ -40,7 +40,7 @@ function ProductDetail() {
         zIndex: 100
     }
     if (isPending) return <CircularProgress color="primary" sx={loaingStyle} />
-    
+
     return (
         <div style={{ marginTop: '5rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
             <Badge badgeContent={data?.category.name} color="primary"  >

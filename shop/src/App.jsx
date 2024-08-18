@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp.jsx"
 import Products from "./pages/Products.jsx"
 import ProductDetail from "./pages/ProductDetail.jsx"
 import Login from "./pages/Login.jsx"
+import Profile from "./pages/Profile.jsx"
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
+      },
+      {
+        path: '/profile',
+        element: <Profile />
       }
     ]
   }

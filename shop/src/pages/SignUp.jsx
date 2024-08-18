@@ -48,7 +48,7 @@ function Login() {
                 <Box px={5} mt={3} pb={5}>
                     <form method="post" onSubmit={handleSubmit}>
                         <TextField
-                            label="UserName"
+                            label="userName"
                             variant="outlined"
                             fullWidth
                             InputLabelProps={{
@@ -60,7 +60,7 @@ function Login() {
                             onChange={(e) => setName(e.target.value)}
                             disabled={focus}
                         />
-                        <TextField label="Email"
+                        <TextField label="email"
                             variant="outlined"
                             type="email"
                             fullWidth

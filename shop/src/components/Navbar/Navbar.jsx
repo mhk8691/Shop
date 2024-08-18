@@ -1,12 +1,12 @@
-import { AppBar, Box, IconButton, TextField, Toolbar, Typography, Link, Button, useMediaQuery, ThemeProvider } from "@mui/material"
+import { AppBar, Box, IconButton, TextField, Toolbar, Typography, Link, Button, useMediaQuery, ThemeProvider, ButtonGroup } from "@mui/material"
 import { Link as RouterLink, useNavigate } from "react-router-dom"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect, useState } from "react";
+import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from 'js-cookie';
-
-
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const toolbarStyles = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1.8 }
 const searchBarStyles =
@@ -36,15 +36,15 @@ const cartStyles = {
 
 }
 function Navbar() {
+    const [isHover, setIsHover] = useState(false)
+    const [token, setToken] = useState('')
     const [query, setQuery] = useState('')
     const navigator = useNavigate()
     const theme = useTheme()
     const menu = useMediaQuery(theme.breakpoints.down('md'))
-    const [isHover, setIsHover] = useState(false)
-    const [token, setToken] = useState('')
     useEffect(() => {
         setToken(Cookies.get('access_token'))
-    }, [token])
+    },)
     const handleMouseEnter = () => {
         setIsHover(true)
     }
@@ -55,6 +55,10 @@ function Navbar() {
         e.preventDefault()
         navigator(`/products/?q=${query}`)
         setQuery('')
+    }
+    function handleLogout() {
+        Cookies.remove('access_token')
+        setToken('')
     }
     return (
         <AppBar position="static" color="default" sx={{ borderRadius: 2, bgcolor: 'primary.contrastText' }}>
@@ -105,7 +109,10 @@ function Navbar() {
                             {
                                 !token ? (
                                     <Button variant="contained" size="large" component={RouterLink} to="/signup">login / sign up</Button>
-                                ) : null
+                                ) : <ButtonGroup variant="contained" >
+                                    < Button variant="contained" color="sungLow" size="small" onClick={handleLogout} endIcon={<LogoutIcon />} > logout</ Button >
+                                    <Button variant="contained" color="primary" size="small" endIcon={<AccountBoxIcon />} component={RouterLink} to='/profile' >Profile</Button>
+                                </ButtonGroup>
                             }
                         </div>
                     )}

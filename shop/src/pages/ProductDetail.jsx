@@ -1,13 +1,19 @@
 import { useParams } from "react-router-dom";
 import useProducts from "../api/useProducts";
+import styles from './ProductDetail.module.css'
+import { useEffect } from "react";
+import { Badge, Box, Button, CircularProgress, Container, Grid, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from 'js-cookie'
+import { login } from "../Slice/accountSlice";
+import { addItem, removeItem } from "../Slice/CartSlice";
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCards } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
-import styles from './ProductDetail.module.css'
-import { useEffect } from "react";
-import { Badge, Box, Button, CircularProgress, Container, Grid, Typography } from "@mui/material";
+import useProfile from "../api/useProfile";
+
 
 const containerStyle = {
     backgroundColor: '#efefef',
@@ -26,21 +32,39 @@ const boxStyle = {
     },
 
 }
+const loaingStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 100
+}
 function ProductDetail() {
+
     const { productId } = useParams();
     const { data, isPending } = useProducts({ key: '', params: productId });
+    const dispatch = useDispatch()
+    const token = Cookies.get('access_token')
+    const isLogin = useSelector(state => state.account.isLogin)
+    const cartList = useSelector(state => state.cart.cartList)
+    const isInCart = cartList.find(item => item.id === data?.id)
+
     useEffect(() => {
         data ? document.title = data?.title : document.title = 'product'
     }, [data]);
-    const loaingStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        zIndex: 100
-    }
-    if (isPending) return <CircularProgress color="primary" sx={loaingStyle} />
 
+
+
+    useEffect(() => {
+
+        if (!isLogin) {
+
+            if (token) {
+                dispatch(login(token))
+            }
+        }
+    }, [token, dispatch]);
+    if (isPending) return <CircularProgress color="primary" sx={loaingStyle} />
     return (
         <div style={{ marginTop: '5rem', paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
             <Badge badgeContent={data?.category.name} color="primary"  >
@@ -69,7 +93,9 @@ function ProductDetail() {
                                 <Typography variant="body1" sx={{ mt: 2 }} >{data?.description}</Typography>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3, alignItems: 'center' }}>
                                     <Typography variant="h6" sx={{ color: 'primary.dark' }}>${data?.price}</Typography>
-                                    <Button variant="contained" >Add to Cart</Button>
+                                    {
+                                        isLogin ? isInCart ? <Button variant="contained" onClick={() => dispatch(removeItem(data?.id))} >Remove from Cart</Button> : <Button variant="contained" onClick={() => dispatch(addItem(data))} >Add to Cart</Button> : null
+                                    }
                                 </Box>
                             </Box>
                         </Grid>
@@ -81,29 +107,3 @@ function ProductDetail() {
 }
 
 export default ProductDetail
-
-// <div style={{ display: 'flex', justifyContent: 'center', marginTop: '5rem' }}>
-
-// </div>
-// <Badge badgeContent={data?.category.name} color="primary" >
-//     <Container sx={containerStyle}  >
-//         <Swiper
-//             effect={'cards'}
-//             grabCursor={true}
-//             modules={[EffectCards]}
-//             className={styles.swiper}
-//         >
-//             {data?.images.map((image) => (
-//                 <SwiperSlide key={image} className={styles.swiperSlide}>
-//                     <img src={image} alt="" style={{ width: '100%', objectFit: 'contain' }} />
-//                 </SwiperSlide>
-//             ))}
-
-//         </Swiper>
-//         <h1>{data?.title}</h1>
-//         {/* <p style={{ textOverflow: 'hidden'}}>{data?.description}</p> */}
-//         <p>{data?.category.name}</p>
-//         <p>${data?.price}</p>
-
-//     </Container>
-// </Badge>

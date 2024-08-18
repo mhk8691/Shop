@@ -3,10 +3,12 @@ import { Link as RouterLink, useNavigate } from "react-router-dom"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from 'js-cookie';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../Slice/accountSlice";
 
 const toolbarStyles = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1.8 }
 const searchBarStyles =
@@ -24,27 +26,26 @@ const searchBarStyles =
 }
 const cartStyles = {
     position: 'absolute',
-    bottom: '-4rem',
     right: '50%',
     transform: 'translateX(50%)',
     backgroundColor: 'white',
     borderRadius: '5px',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.4)',
-    width: '300px',
+    width: '350px',
     padding: '.7rem',
+    marginTop: '1rem',
     zIndex: '100',
 
 }
 function Navbar() {
     const [isHover, setIsHover] = useState(false)
-    const [token, setToken] = useState('')
     const [query, setQuery] = useState('')
     const navigator = useNavigate()
     const theme = useTheme()
     const menu = useMediaQuery(theme.breakpoints.down('md'))
-    useEffect(() => {
-        setToken(Cookies.get('access_token'))
-    },)
+    const dispatch = useDispatch()
+    const isLogin = useSelector(state => state.account.isLogin)
+    const cartList = useSelector(state => state.cart.cartList)
     const handleMouseEnter = () => {
         setIsHover(true)
     }
@@ -58,7 +59,10 @@ function Navbar() {
     }
     function handleLogout() {
         Cookies.remove('access_token')
-        setToken('')
+        dispatch(logout())
+    }
+    function handleCart() {
+        navigator('/cart')
     }
     return (
         <AppBar position="static" color="default" sx={{ borderRadius: 2, bgcolor: 'primary.contrastText' }}>
@@ -101,13 +105,21 @@ function Navbar() {
                     ) : (
                         <div style={{ display: 'flex' }}>
                             <Box sx={{ position: 'relative' }}>
-                                <IconButton sx={{ mr: 1.5 }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                    <ShoppingCartIcon color="primary" />
-                                </IconButton>
-                                {isHover ? <div style={cartStyles}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, consequatur.</div> : null}
+                                {isLogin ? (
+                                    <IconButton sx={{ mr: 1.5 }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleCart}>
+                                        <ShoppingCartIcon color="primary" />
+                                    </IconButton>
+                                ) : null}
+                                {isHover ? <div style={cartStyles}>
+                                    {
+                                        cartList.length > 0 ? cartList.map((item) => (
+                                            <li key={item.id}>{item.title}</li>
+                                        )) : <Typography variant="body1" color="initial">No items in your cart</Typography>
+                                    }
+                                </div> : null}
                             </Box>
                             {
-                                !token ? (
+                                !isLogin ? (
                                     <Button variant="contained" size="large" component={RouterLink} to="/signup">login / sign up</Button>
                                 ) : <ButtonGroup variant="contained" >
                                     < Button variant="contained" color="sungLow" size="small" onClick={handleLogout} endIcon={<LogoutIcon />} > logout</ Button >

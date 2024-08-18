@@ -4,12 +4,15 @@ import { useEffect, useState } from 'react'
 import { Link as RouterLink } from "react-router-dom"
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../Slice/accountSlice';
 function Login() {
     const { mutateAsync: Login, reset } = useLogin()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [focus, setFocus] = useState(false)
     const [token, setToken] = useState('')
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     async function handleSubmit(e) {
         e.preventDefault()
@@ -20,7 +23,8 @@ function Login() {
         const res = await Login(data)
         const token = res.access_token;
         Cookies.set('access_token', token, { expires: 7 });
-        setToken(token)
+        dispatch(login(token))
+        navigate('/')
         setEmail("")
         setPassword("")
         reset()

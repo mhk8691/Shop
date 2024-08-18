@@ -5,7 +5,10 @@ import useProfile from "../api/useProfile"
 import Info from "../components/Profile/Info"
 import { CircularProgress, Container, IconButton } from '@mui/material'
 import EditProfile from "../components/Profile/EditProfile";
-
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from 'js-cookie'
+import { useNavigate } from "react-router-dom";
+import { login } from "../Slice/accountSlice";
 
 const containerStyle = {
     backgroundColor: '#efefef',
@@ -26,13 +29,34 @@ const editStyle = { position: 'absolute', top: 0, right: 0 }
 function Profile() {
     const [editState, setEditState] = useState(false)
     const { data, isPending } = useProfile()
-    console.log(data)
+    const dispatch = useDispatch()
+    const token = Cookies.get('access_token')
+    const isLogin = useSelector(state => state.account.isLogin)
+    const navigate = useNavigate()
+
+
     useEffect(() => {
         document.title = 'Profile'
     }, []);
+
+
     function handleEdit() {
         setEditState(!editState)
     }
+
+    useEffect(() => {
+
+        if (!isLogin) {
+
+            if (token) {
+                dispatch(login(token))
+            }
+            else {
+                navigate('/login')
+            }
+        }
+    }, [token, dispatch]);
+
     if (isPending) return <CircularProgress color="primary" sx={loaingStyle} />
     return (
         < Container maxWidth="sm" sx={containerStyle} >

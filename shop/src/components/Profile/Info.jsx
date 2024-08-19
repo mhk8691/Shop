@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit'
 
 
 const avatarStyle = {
-    width: '200px',
+    width: '150px',
     borderRadius: '50%',
     border: '5px solid red',
     borderLeftColor: '#EF476F',
@@ -15,19 +15,19 @@ const avatarStyle = {
 }
 function Info({ data }) {
     return (
-            <Box display="flex" justifyContent="start" alignItems="center" columnGap={4}>
+        <Box display="flex" justifyContent="start" flexDirection={'column'} columnGap={4}>
 
-                <img src={data?.avatar} alt="profile" style={avatarStyle} />
+            <img src={data?.avatar} alt="profile" style={avatarStyle} />
 
-                <Box >
-                    <Typography variant="h6" gutterBottom component="div" color='primary.dark'>
-                        name:  <Typography variant="h6" gutterBottom component="span" color='primary.light'>{data?.name}</Typography>
-                    </Typography>
-                    <Typography variant="h6" gutterBottom component="div" color='primary.dark'>
-                        email:  <Typography variant="h6" gutterBottom component="span" color='primary.light'>{data?.email}</Typography>
-                    </Typography>
-                </Box>
+            <Box mt={2} ml={2}>
+                <Typography variant="h6" gutterBottom component="div" color='primary.dark'>
+                    name:  <Typography variant="h6" gutterBottom component="span" color='primary.light'>{data?.name}</Typography>
+                </Typography>
+                <Typography variant="h6" gutterBottom component="div" color='primary.dark'>
+                    email:  <Typography variant="h6" gutterBottom component="span" color='primary.light'>{data?.email}</Typography>
+                </Typography>
             </Box>
+        </Box>
 
 
 

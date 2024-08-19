@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../Slice/accountSlice';
 function Login() {
-    const { mutateAsync: Login, reset } = useLogin()
+    const { mutateAsync: Login, reset, isPending } = useLogin()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [focus, setFocus] = useState(false)
@@ -21,6 +21,8 @@ function Login() {
             password,
         }
         const res = await Login(data)
+
+
         const token = res.access_token;
         Cookies.set('access_token', token, { expires: 7 });
         dispatch(login(token))
@@ -81,7 +83,7 @@ function Login() {
                         />
 
                         <Button variant="contained" sx={{ mt: 4, }} fullWidth size="large" type="submit">
-                            Login
+                            {isPending ? 'Loading...' : 'Login'}
                         </Button>
                         <Typography variant="body1" sx={{ mt: 2, textAlign: 'center', }}>
                             Don't have an account?

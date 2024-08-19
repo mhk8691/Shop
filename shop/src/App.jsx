@@ -9,6 +9,7 @@ import ProductDetail from "./pages/ProductDetail.jsx"
 import Login from "./pages/Login.jsx"
 import Profile from "./pages/Profile.jsx"
 import Cart from "./pages/Cart.jsx"
+import Checkout from "./pages/Checkout.jsx"
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart />
+      },
+      {
+        path: '/checkout',
+        element: <Checkout />
       },
     ]
   }

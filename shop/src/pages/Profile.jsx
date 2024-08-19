@@ -3,19 +3,26 @@ import EditIcon from '@mui/icons-material/Edit'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import useProfile from "../api/useProfile"
 import Info from "../components/Profile/Info"
-import { CircularProgress, Container, IconButton } from '@mui/material'
+import { CircularProgress, Container, IconButton, Grid, Box, Typography } from '@mui/material'
 import EditProfile from "../components/Profile/EditProfile";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router-dom";
 import { login } from "../Slice/accountSlice";
+import CheckoutItem from "../components/Checkout/CheckoutItem";
 
 const containerStyle = {
     backgroundColor: '#efefef',
     borderRadius: 5,
+    py: 5,
+    mt: 5,
+    height: '75vh',
+}
+const Style = {
+    borderRadius: 5,
     pb: 5,
-    mt: 13,
-    position: 'relative'
+    position: 'relative',
+    px: 2,
 }
 const loaingStyle = {
     position: 'absolute',
@@ -56,17 +63,57 @@ function Profile() {
             }
         }
     }, [token, dispatch]);
+    const payment = JSON.parse(localStorage.getItem('PaymentList') || '[]')
+
 
     if (isPending) return <CircularProgress color="primary" sx={loaingStyle} />
     return (
-        < Container maxWidth="sm" sx={containerStyle} >
-            <IconButton color="primary" size="large" sx={editStyle} onClick={handleEdit} >
-                {!editState ? <EditIcon fontSize="large" /> : <AccountCircleIcon fontSize="large" />}
-            </IconButton>
-            {
-                editState ? <EditProfile data={data} setEditState={setEditState} /> : <Info data={data} />
-            }
-        </ Container >
+        <Container sx={containerStyle}>
+            <Grid container>
+                <Grid item xs={12} md={5} sx={Style} border={2} borderColor={'primary.main'} >
+                    <div>
+                        <IconButton color="primary" size="large" sx={editStyle} onClick={handleEdit} >
+                            {!editState ? <EditIcon fontSize="large" /> : <AccountCircleIcon fontSize="large" />}
+                        </IconButton>
+                        {
+                            editState ? <EditProfile data={data} setEditState={setEditState} /> : <Info data={data} />
+                        }
+                    </div>
+                </Grid>
+                <Grid item xs={12} md={7} sx={{ px: 2 }} >
+                    <Box height={'410px'} overflow={'auto'} border={2} borderColor={'secondary.dark'} borderRadius={5} >
+                        {payment.length !== 0 ? (
+
+                            payment.map((item, index) => (
+                                <Box key={index} p={2}  >
+                                    {item[0].map(item2 => (
+                                        <CheckoutItem item={item2} key={item2.id} style='15px' />
+                                    ))}
+                                    <Box ml={2}>
+                                        <Typography variant="body1" color="secondary.dark"  >
+                                            Total Price: ${item.totalPrice}
+                                        </Typography>
+                                        <Typography variant="body1" color="secondary.dark" mt={1}>
+                                            {item.method}
+                                        </Typography>
+                                        <Typography variant="body2" color="secondary.dark" mt={1} mb={2}>
+                                            {item.date.split('T')[0]}
+                                        </Typography>
+                                    </Box>
+                                    <hr />
+                                </Box>
+                            ))
+
+                        ) : (
+                            <Typography variant="h6" color="primary.dark" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                No Transactions Yet
+                            </Typography>
+                        )}
+                    </Box>
+
+                </Grid>
+            </Grid>
+        </Container>
     )
 }
 

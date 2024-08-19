@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Slice/accountSlice";
+import { clearCart } from "../../Slice/CartSlice";
 
 const toolbarStyles = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1.8 }
 const searchBarStyles =
@@ -33,7 +34,7 @@ const cartStyles = {
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.4)',
     width: '350px',
     padding: '.7rem',
-    marginTop: '1rem',
+    marginTop: '.3rem',
     zIndex: '100',
 
 }
@@ -60,6 +61,7 @@ function Navbar() {
     function handleLogout() {
         Cookies.remove('access_token')
         dispatch(logout())
+        dispatch(clearCart())
     }
     function handleCart() {
         navigator('/cart')

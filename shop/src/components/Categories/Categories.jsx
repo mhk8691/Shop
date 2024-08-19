@@ -15,7 +15,6 @@ function Categories() {
     if (lg) cols = 4;
     if (xl) cols = 5;
 
-    // const imageCategory = {}
 
     return (
         <>

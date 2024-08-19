@@ -50,7 +50,8 @@ function ProductDetail() {
     const isInCart = cartList.find(item => item.id === data?.id)
     const data2 = {
         ...data,
-        quantity: 0
+        quantity: 1,
+        totalPrice: data?.price
     }
     useEffect(() => {
         data ? document.title = data?.title : document.title = 'product'

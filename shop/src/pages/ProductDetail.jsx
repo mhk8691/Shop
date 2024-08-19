@@ -48,7 +48,10 @@ function ProductDetail() {
     const isLogin = useSelector(state => state.account.isLogin)
     const cartList = useSelector(state => state.cart.cartList)
     const isInCart = cartList.find(item => item.id === data?.id)
-
+    const data2 = {
+        ...data,
+        quantity: 0
+    }
     useEffect(() => {
         data ? document.title = data?.title : document.title = 'product'
     }, [data]);
@@ -94,7 +97,7 @@ function ProductDetail() {
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3, alignItems: 'center' }}>
                                     <Typography variant="h6" sx={{ color: 'primary.dark' }}>${data?.price}</Typography>
                                     {
-                                        isLogin ? isInCart ? <Button variant="contained" onClick={() => dispatch(removeItem(data?.id))} >Remove from Cart</Button> : <Button variant="contained" onClick={() => dispatch(addItem(data))} >Add to Cart</Button> : null
+                                        isLogin ? isInCart ? <Button variant="contained" onClick={() => dispatch(removeItem(data2?.id))} >Remove from Cart</Button> : <Button variant="contained" onClick={() => dispatch(addItem(data2))} >Add to Cart</Button> : null
                                     }
                                 </Box>
                             </Box>

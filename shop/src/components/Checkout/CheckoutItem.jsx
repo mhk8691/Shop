@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from '@mui/material'
+import { Grid, Typography, Box, Badge } from '@mui/material'
 // style
 
 const contentStyle = {
@@ -23,7 +23,11 @@ function CheckoutItem({ item, style }) {
         marginBottom: style,
     }
     return (
-        <Grid item xs={12} sx={cartStyle} border={2} borderColor={'primary.light'} >
+        <Grid item xs={12} sx={cartStyle} border={2} borderColor={'primary.light'} position={'relative'}>
+            {!style ? (
+                <Badge badgeContent={item.quantity} color="primary" sx={{ position: 'absolute', top: 0, right: 0 }}>
+                </Badge>
+            ) : null}
             <Box sx={contentStyle} >
                 <Box>
                     <img src={item.images[0]} alt={item.title} width={80} height={80} style={{ borderRadius: '5px' }} />

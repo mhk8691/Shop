@@ -113,10 +113,20 @@ function Navbar() {
                                     </IconButton>
                                 ) : null}
                                 {isHover ? <div style={cartStyles}>
+
                                     {
-                                        cartList.length > 0 ? cartList.map((item) => (
-                                            <li key={item.id}>{item.title}</li>
-                                        )) : <Typography variant="body1" color="initial">No items in your cart</Typography>
+
+                                        cartList.length > 0 ? cartList.map((item, index) => (
+                                            <Box key={index} display={'flex'} alignItems={'center'} border={2} p={1} borderColor={'primary.light'} justifyContent={'space-between'} borderRadius={'5px'} marginTop={'.5rem'} marginBottom={'.5rem'}>
+                                                <Typography variant="body2" color="primary.dark">
+                                                    {item.title}
+                                                </Typography>
+                                                <Typography variant="body2" color="primary.main">
+                                                    ${item.price}
+                                                </Typography>
+
+                                            </Box>
+                                        )) : <Typography variant="body1" color="primary.dark" sx={{ textAlign: 'center' }}>No items in your cart</Typography>
                                     }
                                 </div> : null}
                             </Box>

@@ -27,6 +27,7 @@ function Login() {
         setPassword("")
         reset()
         setFocus(false)
+        navigate('/login')
     }
     useEffect(() => {
         document.title = 'Sign up'

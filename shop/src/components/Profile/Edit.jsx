@@ -2,7 +2,7 @@ import { Box, TextField, Typography, Button } from "@mui/material"
 import { useState } from "react"
 import useUpdateUser from "../../api/useUpdateUser"
 
-function EditeProfile({ data, setEditState }) {
+function EditProfile({ data, setEditState }) {
     const [name, setName] = useState(data?.name)
     const [email, setEmail] = useState(data?.email)
     const { mutateAsync: updateUser, reset } = useUpdateUser()
@@ -61,4 +61,4 @@ function EditeProfile({ data, setEditState }) {
     )
 }
 
-export default EditeProfile
+export default EditProfile

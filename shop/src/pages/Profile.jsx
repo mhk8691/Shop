@@ -4,7 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import useProfile from "../api/useProfile"
 import Info from "../components/Profile/Info"
 import { CircularProgress, Container, IconButton, Grid, Box, Typography } from '@mui/material'
-import EditProfile from "../components/Profile/EditProfile";
+import EditProfile from "../components/Profile/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,6 @@ const containerStyle = {
     borderRadius: 5,
     py: 5,
     mt: 5,
-    height: '75vh',
 }
 const Style = {
     borderRadius: 5,
@@ -80,7 +79,7 @@ function Profile() {
                         }
                     </div>
                 </Grid>
-                <Grid item xs={12} md={7} sx={{ px: 2 }} >
+                <Grid item xs={12} md={7} sx={{ px: 2, mt: { md: 0, sm: 5 } }} >
                     <Box height={'410px'} overflow={'auto'} border={2} borderColor={'secondary.dark'} borderRadius={5} >
                         {payment.length !== 0 ? (
 

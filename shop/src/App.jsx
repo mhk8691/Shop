@@ -10,6 +10,12 @@ import Login from "./pages/Login.jsx"
 import Profile from "./pages/Profile.jsx"
 import Cart from "./pages/Cart.jsx"
 import Checkout from "./pages/Checkout.jsx"
+import ProductsList from './Admin/Products/ProductsList.jsx'
+import ProductsEdit from "./Admin/Products/ProductsEditPage.jsx"
+import ProductsAddPage from "./Admin/Products/AddProductPage.jsx"
+import CategoriesAdmin from "./Admin/Category/CategoriesList.jsx"
+import CategoriesEdit from "./Admin/Category/CategoriesEditPage.jsx"
+import AddCategoryPage from "./Admin/Category/AddCategoryPage.jsx"
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -49,6 +55,30 @@ const router = createBrowserRouter([
       {
         path: '/checkout',
         element: <Checkout />
+      },
+      {
+        path: '/products/list',
+        element: <ProductsList />
+      },
+      {
+        path: '/products/edit/:id',
+        element: <ProductsEdit />
+      },
+      {
+        path: '/products/add',
+        element: <ProductsAddPage />
+      },
+      {
+        path: '/categories/list',
+        element: <CategoriesAdmin />
+      },
+      {
+        path: '/categories/edit/:id',
+        element: <CategoriesEdit />
+      },
+      {
+        path: '/categories/add',
+        element: <AddCategoryPage />
       },
     ]
   }

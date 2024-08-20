@@ -105,20 +105,23 @@ function CategoriesAdmin() {
 
     if (isPending) return <CircularProgress sx={loaingStyle} />
     return (
-        <div style={{ marginTop: '20px', padding: '20px', width: '50%' }}>
-            <Button variant='contained' startIcon={<AddCircleIcon />} onClick={() => navigate('/categories/add')} sx={{ mb: 2 }}>new Category</Button>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 20, 30, 50, 100]}
-                checkboxSelection
-            />
-        </div >
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+            <div style={{ marginTop: '20px', padding: '20px', width: '50%',height: '100%' }}>
+                <Button variant='contained' startIcon={<AddCircleIcon />} onClick={() => navigate('/categories/add')} sx={{ mb: 2 }}>new Category</Button>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 5 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10, 20, 30, 50, 100]}
+                    checkboxSelection
+                />
+            </div >
+        </div>
     )
 }
 

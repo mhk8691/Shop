@@ -82,7 +82,7 @@ function Login() {
 
                         />
 
-                        <Button variant="contained" sx={{ mt: 4, }} fullWidth size="large" type="submit">
+                        <Button variant="contained" disabled={isPending} sx={{ mt: 4, }} fullWidth size="large" type="submit">
                             {isPending ? 'Loading...' : 'Login'}
                         </Button>
                         <Typography variant="body1" sx={{ mt: 2, textAlign: 'center', }}>

@@ -5,7 +5,7 @@ import { CircularProgress } from "@mui/material";
 
 function ProductsEdit() {
     const { id } = useParams();
-    const { data, isPending } = useProducts({ key: '', params: id });
+    const { data, isPending } = useProducts({ key: '', param: id });
     const loaingStyle = {
         position: 'absolute',
         top: '50%',

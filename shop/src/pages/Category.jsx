@@ -18,7 +18,7 @@ const loaingStyle = {
 
 function Products() {
     const params = useParams().categoryId
-    const { data, isPending } = useProducts({ key: '?categoryId=', params })
+    const { data, isPending } = useProducts({ key: 'category', param: `?categoryId=${params}` })
     const dispatch = useDispatch()
     const token = Cookies.get('access_token')
     const isLogin = useSelector(state => state.account.isLogin)

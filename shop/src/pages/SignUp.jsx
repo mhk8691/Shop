@@ -5,7 +5,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 
 function Login() {
-    const { mutateAsync: signup, reset } = useSignup()
+    const { mutateAsync: signup, reset, isPending } = useSignup()
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
@@ -91,8 +91,8 @@ function Login() {
 
                         />
 
-                        <Button variant="contained" sx={{ mt: 4, }} fullWidth size="large" type="submit">
-                            Sign up
+                        <Button variant="contained" sx={{ mt: 4, }} disabled={isPending} fullWidth size="large" type="submit">
+                            {isPending ? 'Loading...' : 'Sign up'}
                         </Button>
                         <Typography variant="body1" sx={{ mt: 2, textAlign: 'center', }}>
                             Already have an account?

@@ -19,7 +19,7 @@ const loaingStyle = {
     zIndex: 100
 }
 function ProductsAdmin() {
-    const { data, isPending } = useProducts({ key: '', params: '' });
+    const { data, isPending } = useProducts({ key: 'products', param: '' });
     const dispatch = useDispatch()
     const token = Cookies.get('access_token')
     const isLogin = useSelector(state => state.account.isLogin)

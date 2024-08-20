@@ -42,7 +42,7 @@ const loaingStyle = {
 function ProductDetail() {
 
     const { productId } = useParams();
-    const { data, isPending } = useProducts({ key: '', params: productId });
+    const { data, isPending } = useProducts({ key: 'detail', param: productId });
     const dispatch = useDispatch()
     const token = Cookies.get('access_token')
     const isLogin = useSelector(state => state.account.isLogin)

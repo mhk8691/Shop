@@ -63,7 +63,7 @@ createRoot(document.getElementById('root')).render(
           <App />
         </Provider>
       </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false}   /> */}
     </QueryClientProvider>
   </StrictMode>,
 )

@@ -19,7 +19,7 @@ function HomePage() {
         }
     }, [token, dispatch]);
     return (
-        <div>
+        <div >
             <Slider />
             <Categories />
         </div>

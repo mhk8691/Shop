@@ -101,9 +101,7 @@ function Navbar() {
                 </Box>
                 <Box>
                     {menu ? (
-                        <IconButton sx={{ mr: 1 }}>
-                            <MenuIcon color="primary" fontSize="large" />
-                        </IconButton>
+                        null
                     ) : (
                         <div style={{ display: 'flex' }}>
                             <Box sx={{ position: 'relative' }}>

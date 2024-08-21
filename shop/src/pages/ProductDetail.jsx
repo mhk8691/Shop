@@ -25,10 +25,14 @@ const boxStyle = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    marginLeft: {
+        sm: '0',
+        md: '2rem',
+    },
     height: '100%',
     textAlign: {
         xs: 'center',
-        sm: 'start',
+        md: 'start',
     },
 
 }
